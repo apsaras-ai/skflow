@@ -1,0 +1,33 @@
+{
+  "target": {
+    "role": "Python 后端与数据工程师",
+    "required_skills": ["Python", "SQL", "数据管道"],
+    "note": "所有候选人及项目材料均为演示数据；不得据此作真实招聘决策。"
+  },
+  "candidates": [
+    {
+      "id": "c-001",
+      "name": "林舟（虚构）",
+      "years_experience": 6,
+      "skills": ["Python", "SQL", "数据管道"],
+      "summary": "开发过 Python 数据采集服务与定时 ETL 管道，负责日志和失败重试。",
+      "portfolio_url": "https://example.invalid/lin-zhou"
+    },
+    {
+      "id": "c-002",
+      "name": "陈雨（虚构）",
+      "years_experience": 4,
+      "skills": ["Java", "SQL", "分布式系统"],
+      "summary": "主要负责 Java 业务服务和数据库性能优化，Python 用于个人自动化脚本。",
+      "portfolio_url": null
+    },
+    {
+      "id": "c-003",
+      "name": "周宁（虚构）",
+      "years_experience": 3,
+      "skills": ["Python", "数据分析", "SQL"],
+      "summary": "使用 Python 与 SQL 完成分析项目，尚未提供生产服务部署与运维经历。",
+      "portfolio_url": "https://example.invalid/zhou-ning"
+    }
+  ]
+}

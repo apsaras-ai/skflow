@@ -1,0 +1,48 @@
+version: 1
+name: candidate-sourcing
+
+steps:
+  discover:
+    run: python3 scripts/discover.py
+    output: /raw_data
+    timeout: 60s
+    retry: 2
+
+  merge:
+    run: python3 scripts/merge.py
+    output: /candidates
+    timeout: 10s
+
+  enrich:
+    foreach: { items: /candidates, key: id, concurrency: 4 }
+    run: python3 scripts/enrich_one.py
+    output: /enriched
+    timeout: 10s
+    retry: 1
+
+  review:
+    foreach: { items: /candidates, key: id, batch: 2 }
+    agent:
+      instruction: >-
+        根据每位虚构候选人的事实、补证数据和岗位要求，评估匹配度。
+        recommendation 选 strong、possible 或 weak，score 为 1 到 5 的整数。
+        reason 说明匹配依据和需要进一步核实的内容，至少 40 个字符；
+        evidence 至少两条，不得把“提供链接”表述为“已验证链接内容”。
+        每张工单必须提交该工单全部 Key 的结果对象。
+      context:
+        candidate: "{item}"
+        enriched: "/enriched/{key}"
+        target: "/input/target"
+      schema: schemas/review.schema.json
+    output: /reviews
+
+  quality_check:
+    check:
+      - expr: "length(candidates) == length(keys(reviews))"
+        message: 存在未完成评估的候选人
+    on_fail: { goto: review, max_visits: 2 }
+
+  render:
+    run: python3 scripts/render_report.py
+    output: /report
+    timeout: 10s
