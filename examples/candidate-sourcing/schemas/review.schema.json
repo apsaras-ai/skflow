@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Candidate review",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["recommendation", "score", "reason", "evidence"],
+  "properties": {
+    "recommendation": {
+      "type": "string",
+      "enum": ["strong", "possible", "weak"]
+    },
+    "score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 40
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 4 }
+    }
+  }
+}

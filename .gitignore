@@ -1,0 +1,7 @@
+/target/
+.skflow/
+*.db
+*.db-journal
+*.db-lock
+__pycache__/
+/examples/candidate-sourcing/report.html

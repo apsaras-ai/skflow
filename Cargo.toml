@@ -1,0 +1,29 @@
+[package]
+name = "skflow"
+version = "0.1.0"
+edition = "2021"
+description = "A local, model-free workflow and cognitive task CLI for Agent Skills"
+license = "MIT"
+repository = "https://github.com/apsaras-ai/skflow"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive"] }
+fs2 = "0.4"
+fluent-uri = "0.3"
+humantime = "2"
+indexmap = { version = "2", features = ["serde"] }
+jmespath = "0.5"
+jsonschema = { version = "0.33", default-features = false }
+libc = "0.2"
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+serde_yaml = "0.9"
+sha2 = "0.10"
+tempfile = "3"
+uuid = { version = "1", features = ["v4"] }
+
+[profile.release]
+lto = "thin"
+strip = true
